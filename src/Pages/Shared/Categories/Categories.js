@@ -10,12 +10,12 @@ const Categories = () => {
   }, []);
 
   return (
-    <div className="flex flex-rows gap-6 justify-center items-center my-16">
+    <div className="flex  flex-col md:flex-row  gap-6 justify-center items-center my-16">
       {categories.map((category) => (
-        <div>
+        <div className="mb-4">
           <Link
             key={category._id}
-            className="bg-primary  border border-primary text-white px-8 py-3 rounded-md hover:bg-transparent hover:text-primary font-medium transition"
+            className="bg-primary    border border-primary text-white px-8 py-3 rounded-md hover:bg-transparent hover:text-primary font-medium transition"
           >
             {category.name}
           </Link>
