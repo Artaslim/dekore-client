@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const SignUp = () => {
   const {
@@ -8,8 +9,15 @@ const SignUp = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { createUser } = useContext(AuthContext);
   const handleSignUp = (data) => {
     console.log(data);
+    createUser(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((err) => console.error(err.message));
   };
   return (
     <div className="h-[800px] flex justify-center items-center ">
@@ -53,6 +61,10 @@ const SignUp = () => {
                   value: 6,
                   message: "password must be 6 character or longer",
                 },
+                pattern: {
+                  value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/,
+                  message: "password must be strong",
+                },
               })}
               type="password"
               className="input input-bordered  w-full max-w-xs"
@@ -66,36 +78,24 @@ const SignUp = () => {
               <span className="label-text">Pick One</span>
             </label>
             <select
-              className="input input-bordered w-full mb-8 max-w-xs"
-              {...register("category", { required: true })}
+              className="input input-bordered w-full mb-4 max-w-xs"
+              type="category"
+              {...register("category", {
+                required: "category Address is required",
+              })}
             >
               <option value="">Select...</option>
               <option value="Seller">Seller</option>
               <option value="Buyer">Buyer</option>
             </select>
+            {errors.category && (
+              <p className="text-red-600">{errors.category?.message}</p>
+            )}
           </div>
-          {/* <input
-          type="text"
-          placeholder="Type here"
-          className="input input-bordered w-full max-w-xs"
-        /> */}
 
-          {/* <label className="label">
-            <span className="label-text">Password</span>
-          </label>
-          <select
-            className="input input-bordered w-full mb-4 max-w-xs"
-            {...register("category", { required: true })}
-          >
-            <option value="">Select...</option>
-            <option value="A">Seller</option>
-            <option value="B">Buyer</option>
-          </select> */}
-
-          {/* <p>{data}</p> */}
           <input
             className="btn btn-accent w-full"
-            value="Login"
+            value="SignUp"
             type="submit"
           />
         </form>
