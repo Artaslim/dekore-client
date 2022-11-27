@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const Login = () => {
   const {
@@ -8,8 +9,19 @@ const Login = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
+  const { signIn } = useContext(AuthContext);
+  const [loginError, setLoginError] = useState();
   const handleLogin = (data) => {
     console.log(data);
+    signIn(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((err) => {
+        console.error(err.message);
+        setLoginError(err.message);
+      });
   };
 
   return (
@@ -52,24 +64,15 @@ const Login = () => {
               <span className="label-text">Forget password?</span>
             </label>
           </div>
-          {/* <input
-              type="text"
-              placeholder="Type here"
-              className="input input-bordered w-full max-w-xs"
-            /> */}
 
-          {/* <select className="select select-bordered w-full max-w-xs" {...register("category", { required: true })}>
-            <option value="">Select...</option>
-            <option value="A">Option A</option>
-            <option value="B">Option B</option>
-          </select> */}
-
-          {/* <p>{data}</p> */}
           <input
             className="btn btn-accent w-full"
             value="Login"
             type="submit"
           />
+          <div>
+            {loginError && <p className="text-red-600">{loginError}</p>}
+          </div>
         </form>
         <p className="mt-2">
           New to Interior?
