@@ -22,6 +22,9 @@ const Navbar = () => {
       {user?.email ? (
         <>
           <li className="font-semibold">
+            <Link to="/categories">Categories</Link>
+          </li>
+          <li className="font-semibold">
             <Link to="/dashboard">Dashboard</Link>
           </li>
           <li>
