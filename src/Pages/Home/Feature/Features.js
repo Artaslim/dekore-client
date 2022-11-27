@@ -11,21 +11,21 @@ const Features = () => {
       name: "Interior for Home",
       description: "Open 9 pm to 5pm everyday",
       icon: img1,
-      bgClass: "bg-amber-400",
+      bgClass: "bg-primary",
     },
     {
       id: 2,
       name: "Trusted by thousands",
       description: "Brooklyn, NY 10036, United States",
       icon: img2,
-      bgClass: "bg-amber-400",
+      bgClass: "bg-primary",
     },
     {
       id: 3,
       name: "Financing made easy",
       description: "+000 123 456789",
       icon: img3,
-      bgClass: "bg-amber-400",
+      bgClass: "bg-primary",
     },
   ];
   return (

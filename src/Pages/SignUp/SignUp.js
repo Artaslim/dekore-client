@@ -2,21 +2,33 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const SignUp = () => {
   const {
     register,
-    formState: { errors },
     handleSubmit,
+    formState: { errors },
   } = useForm();
-  const handleLogin = (data) => {
+  const handleSignUp = (data) => {
     console.log(data);
   };
-
   return (
     <div className="h-[800px] flex justify-center items-center ">
       <div className="w-96 p-7 shadow-lg border-2">
-        <h2 className="text-xl text-center">Login</h2>
-        <form onSubmit={handleSubmit(handleLogin)}>
+        <h2 className="text-xl text-center">Sign Up</h2>
+        <form onSubmit={handleSubmit(handleSignUp)}>
+          <div className="form-control w-full max-w-xs">
+            <label className="label">
+              <span className="label-text">Name</span>
+            </label>
+            <input
+              type="text"
+              {...register("name", { required: "name is required" })}
+              className="input input-bordered w-full max-w-xs"
+            />
+            {errors.name && (
+              <p className="text-red-500">{errors.name.message}</p>
+            )}
+          </div>
           <div className="form-control w-full max-w-xs">
             <label className="label">
               <span className="label-text">Email</span>
@@ -43,25 +55,41 @@ const Login = () => {
                 },
               })}
               type="password"
-              className="input input-bordered w-full max-w-xs"
+              className="input input-bordered  w-full max-w-xs"
             />
             {errors.password && (
               <p className="text-red-600">{errors.password?.message}</p>
             )}
+          </div>
+          <div className="form-control w-full max-w-xs">
             <label className="label">
-              <span className="label-text">Forget password?</span>
+              <span className="label-text">Pick One</span>
             </label>
+            <select
+              className="input input-bordered w-full mb-8 max-w-xs"
+              {...register("category", { required: true })}
+            >
+              <option value="">Select...</option>
+              <option value="Seller">Seller</option>
+              <option value="Buyer">Buyer</option>
+            </select>
           </div>
           {/* <input
-              type="text"
-              placeholder="Type here"
-              className="input input-bordered w-full max-w-xs"
-            /> */}
+          type="text"
+          placeholder="Type here"
+          className="input input-bordered w-full max-w-xs"
+        /> */}
 
-          {/* <select className="select select-bordered w-full max-w-xs" {...register("category", { required: true })}>
+          {/* <label className="label">
+            <span className="label-text">Password</span>
+          </label>
+          <select
+            className="input input-bordered w-full mb-4 max-w-xs"
+            {...register("category", { required: true })}
+          >
             <option value="">Select...</option>
-            <option value="A">Option A</option>
-            <option value="B">Option B</option>
+            <option value="A">Seller</option>
+            <option value="B">Buyer</option>
           </select> */}
 
           {/* <p>{data}</p> */}
@@ -72,9 +100,9 @@ const Login = () => {
           />
         </form>
         <p className="mt-2">
-          New to Interior?
-          <Link to="/signup" className="text-secondary  font-semibold">
-            Create new account
+          Already have an account??
+          <Link to="/login" className="text-secondary  font-semibold">
+            Please Login
           </Link>
         </p>
         <div className="divider">OR</div>
@@ -84,4 +112,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
