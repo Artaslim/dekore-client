@@ -30,7 +30,7 @@ const SignUp = () => {
 
         toast("user toaster successfully");
         const userInfo = {
-          displayName: data.name,
+          displayName: data.name.toLowerCase(),
         };
         updateUser(userInfo)
           .then(() => {
@@ -51,7 +51,7 @@ const SignUp = () => {
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(user),
+      body: JSON.stringify(user).toLowerCase(),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -70,7 +70,9 @@ const SignUp = () => {
             </label>
             <input
               type="text"
-              {...register("name", { required: "name is required" })}
+              {...register("name", {
+                required: "name is required",
+              })}
               className="input input-bordered w-full max-w-xs"
             />
             {errors.name && (
@@ -124,9 +126,9 @@ const SignUp = () => {
                 required: "category Address is required",
               })}
             >
-              <option value="">Select...</option>
-              <option value="Seller">Seller</option>
-              <option value="Buyer">Buyer</option>
+              <option value="">select...</option>
+              <option value="seller">seller</option>
+              <option value="buyer">buyer</option>
             </select>
             {errors.category && (
               <p className="text-red-600">{errors.category?.message}</p>

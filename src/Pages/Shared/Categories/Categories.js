@@ -10,7 +10,7 @@ const Categories = () => {
 
   const [categories, setCategories] = useState([]);
   const [item, setItem] = useState(null);
-  const [loading, setloading] = useState(true);
+  const [loading] = useState(true);
 
   useEffect(() => {
     fetch("http://localhost:5000/categories")
@@ -37,16 +37,7 @@ const Categories = () => {
           </div>
         ))}
       </div>
-      <div className="grid p-12 gap-8 grid-cols-1 md:grid-cols-3">
-        {products.map((product) => (
-          <Items
-            date={Date()}
-            key={product._id}
-            product={product}
-            setItem={setItem}
-          ></Items>
-        ))}
-      </div>
+      <Items date={Date()} products={products} setItem={setItem}></Items>
       {item && <BookingModal item={item} setItem={setItem}></BookingModal>}
     </div>
   );

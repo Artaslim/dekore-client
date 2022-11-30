@@ -2,28 +2,28 @@ import React, { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { AuthContext } from "../../../contexts/AuthProvider";
 
-const AllSellers = () => {
+const AllBuyers = () => {
   const { user } = useContext(AuthContext);
   const { data: seller = [], refetch } = useQuery({
     queryKey: ["seller"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/users/seller");
+      const res = await fetch("http://localhost:5000/users/buyer");
       const data = await res.json();
       return data;
     },
   });
-  const handleMakeAdmin = (id) => {
-    fetch(`http://localhost:5000/users/seller?email=${seller.email}}`, {
-      method: "PUT",
-      headers: {
-        authorization: `bearer ${localStorage.getItem("accessToken")}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
-  };
+  // const handleMakeAdmin = (id) => {
+  //   fetch(`http://localhost:5000/users/seller?${seller.email}`, {
+  //     method: "PUT",
+  //     headers: {
+  //       authorization: `bearer ${localStorage.getItem("accessToken")}`,
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //     });
+  // };
 
   return (
     <div>
@@ -50,14 +50,6 @@ const AllSellers = () => {
                 <td>{sell.category}</td>
 
                 <td>
-                  <button
-                    onClick={() => handleMakeAdmin(sell._id)}
-                    className="btn btn-xs btn-secondary"
-                  >
-                    verifySeller
-                  </button>
-                </td>
-                <td>
                   <button className="btn btn-xs btn-secondary">Delete</button>
                 </td>
               </tr>
@@ -69,4 +61,4 @@ const AllSellers = () => {
   );
 };
 
-export default AllSellers;
+export default AllBuyers;

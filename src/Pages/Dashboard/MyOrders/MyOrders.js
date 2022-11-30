@@ -1,40 +1,64 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../../contexts/AuthProvider";
+import { useQuery } from "@tanstack/react-query";
+import Loading from "../../Shared/Loading/Loading";
+import { Link } from "react-router-dom";
 
 const MyOrders = () => {
+  const { user } = useContext(AuthContext);
+  const url = `http://localhost:5000/bookings?email=${user.email}`;
+
+  const { data: bookings = [], isLoading } = useQuery({
+    queryKey: ["bookings", user?.email],
+    queryFn: async () => {
+      const res = await fetch(url, {
+        headers: {
+          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      const data = await res.json();
+      return data;
+    },
+  });
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
   return (
     <div>
-      <h2 className="text-3xl"> My Orders</h2>
+      <h3 className="text-3xl mb-4">My Orders</h3>
       <div className="overflow-x-auto">
         <table className="table w-full">
           <thead>
             <tr>
               <th></th>
               <th>Name</th>
-              <th>Job</th>
-              <th>Favorite Color</th>
+              <th>Price</th>
+              <th>Location</th>
+              <th>Paymemt</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th>1</th>
-              <td>Cy Ganderton</td>
-              <td>Quality Control Specialist</td>
-              <td>Blue</td>
-            </tr>
-
-            <tr className="hover">
-              <th>2</th>
-              <td>Hart Hagerty</td>
-              <td>Desktop Support Technician</td>
-              <td>Purple</td>
-            </tr>
-
-            <tr>
-              <th>3</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
-            </tr>
+            {bookings &&
+              bookings?.map((booking, i) => (
+                <tr key={booking._id}>
+                  <th>{i + 1}</th>
+                  <td>{booking.buyer}</td>
+                  <td>{booking.price}</td>
+                  <td>{booking.location}</td>
+                  <td>
+                    {!booking.paid && (
+                      <Link to={`/dashboard/payment/${booking._id}`}>
+                        <button className="btn btn-primary p-4 text-white">
+                          Pay
+                        </button>
+                      </Link>
+                    )}
+                    {booking.price && booking.paid && (
+                      <span className="text-secondary">Paid</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
