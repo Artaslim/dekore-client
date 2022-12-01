@@ -13,7 +13,9 @@ const Categories = () => {
   const [loading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/categories")
+    fetch(
+      "https://b612-used-products-resale-server-side-artaslim.vercel.app/categories"
+    )
       .then((res) => res.json())
       .then((data) => setCategories(data));
   }, []);

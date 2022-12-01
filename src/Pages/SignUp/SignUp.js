@@ -46,13 +46,16 @@ const SignUp = () => {
   };
   const saveUser = (name, email, category) => {
     const user = { name, email, category };
-    fetch("http://localhost:5000/users", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(user).toLowerCase(),
-    })
+    fetch(
+      "https://b612-used-products-resale-server-side-artaslim.vercel.app/users",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(user).toLowerCase(),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setCreatedUserEmail(email);

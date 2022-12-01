@@ -7,23 +7,13 @@ const AllBuyers = () => {
   const { data: seller = [], refetch } = useQuery({
     queryKey: ["seller"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/users/buyer");
+      const res = await fetch(
+        "https://b612-used-products-resale-server-side-artaslim.vercel.app/users/buyer"
+      );
       const data = await res.json();
       return data;
     },
   });
-  // const handleMakeAdmin = (id) => {
-  //   fetch(`http://localhost:5000/users/seller?${seller.email}`, {
-  //     method: "PUT",
-  //     headers: {
-  //       authorization: `bearer ${localStorage.getItem("accessToken")}`,
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //     });
-  // };
 
   return (
     <div>
@@ -36,9 +26,6 @@ const AllBuyers = () => {
               <th>Name</th>
               <th>Email</th>
               <th>Category</th>
-
-              <th>Seller</th>
-              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -48,10 +35,6 @@ const AllBuyers = () => {
                 <td>{sell.name}</td>
                 <td>{sell.email}</td>
                 <td>{sell.category}</td>
-
-                <td>
-                  <button className="btn btn-xs btn-secondary">Delete</button>
-                </td>
               </tr>
             ))}
           </tbody>

@@ -12,7 +12,7 @@ const MyProduct = () => {
   const closeModal = () => {
     setDeleteProduct(null);
   };
-  const url = `http://localhost:5000/products?email=${user.email}`;
+  const url = `https://b612-used-products-resale-server-side-artaslim.vercel.app/products?email=${user.email}`;
 
   const {
     data: products = [],
@@ -31,12 +31,15 @@ const MyProduct = () => {
     },
   });
   const handleDeleteProduct = (product) => {
-    fetch(`http://localhost:5000/products/${product._id}`, {
-      method: "DELETE",
-      headers: {
-        authorization: `bearer ${localStorage.getItem("accessToken")}`,
-      },
-    })
+    fetch(
+      `https://b612-used-products-resale-server-side-artaslim.vercel.app/products/${product._id}`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.deletedCount > 0) {

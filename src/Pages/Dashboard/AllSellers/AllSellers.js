@@ -4,21 +4,27 @@ import { AuthContext } from "../../../contexts/AuthProvider";
 
 const AllSellers = () => {
   const { user } = useContext(AuthContext);
+
   const { data: seller = [], refetch } = useQuery({
     queryKey: ["seller"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/users/seller");
+      const res = await fetch(
+        "https://b612-used-products-resale-server-side-artaslim.vercel.app/users/seller"
+      );
       const data = await res.json();
       return data;
     },
   });
-  const handleMakeAdmin = (id) => {
-    fetch(`http://localhost:5000/users/seller?email=${seller.email}}`, {
-      method: "PUT",
-      headers: {
-        authorization: `bearer ${localStorage.getItem("accessToken")}`,
-      },
-    })
+  const handleMakeSeller = (email) => {
+    fetch(
+      `https://b612-used-products-resale-server-side-artaslim.vercel.app/users/seller/${email}`,
+      {
+        method: "PUT",
+        headers: {
+          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -50,12 +56,25 @@ const AllSellers = () => {
                 <td>{sell.category}</td>
 
                 <td>
-                  <button
-                    onClick={() => handleMakeAdmin(sell._id)}
-                    className="btn btn-xs btn-secondary"
-                  >
-                    verifySeller
-                  </button>
+                  {/* {user?.role === "admin" && user?.status !== "true" && (
+                    <button
+                      onClick={() => handleMakeSeller(sell._email)}
+                      className="btn btn-xs btn-secondary"
+                    >
+                      verifySeller
+                    </button>
+                  )} */}
+                  {user.$unset !== "false" && (
+                    <button
+                      onClick={() => handleMakeSeller(sell.email)}
+                      className="btn btn-xs btn-primary  text-white"
+                    >
+                      unverified
+                    </button>
+                  )}
+                  {user.$unset === "false" && (
+                    <span className="text-secondary">verified</span>
+                  )}
                 </td>
                 <td>
                   <button className="btn btn-xs btn-secondary">Delete</button>

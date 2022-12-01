@@ -23,13 +23,16 @@ const BookingModal = ({ item, setItem }) => {
       location,
     };
     console.log(booking);
-    fetch("http://localhost:5000/bookings", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(booking),
-    })
+    fetch(
+      "https://b612-used-products-resale-server-side-artaslim.vercel.app/bookings",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(booking),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

@@ -39,7 +39,9 @@ export const router = createBrowserRouter([
         path: "/categories/:category",
         element: <Categories></Categories>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/products/${params.category}`),
+          fetch(
+            `https://b612-used-products-resale-server-side-artaslim.vercel.app/products/${params.category}`
+          ),
       },
       {
         path: "/blog",
@@ -105,7 +107,9 @@ export const router = createBrowserRouter([
         path: "/dashboard/payment/:id",
         element: <Payment></Payment>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/bookings/${params.id}`),
+          fetch(
+            `https://b612-used-products-resale-server-side-artaslim.vercel.app/bookings/${params.id}`
+          ),
       },
       {
         path: "/dashboard/adddproduct",
