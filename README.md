@@ -73,14 +73,17 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 https://github.com/programming-hero-web-course-4/b612-used-products-resale-clients-side-Artaslim/tree/main/src
 
-.It was resale website
-.It has three users sellers buyers admin
-.Admin control sellers and buyers route
-.Buyer control Add product and my product
-.seller control order product
-.it has four blog post
-.It has two authentication system
-.It also have payment system
+<ul>
+<li>.It was resale website</li>
+<li>.It has three users sellers buyers admin</li>
+<li>.Admin control sellers and buyers route</li>
+<li>.Buyer control Add product and my product</li>
+<li>.Buyer control Add product and my product</li>
+<li>.seller control order product</li>
+<li>.it has four blog post</li>
+<li>.It has two authentication system</li>
+<li>.It also have payment system</li>
+</ul>
 
 adminEmail:<murshed@gmail.com>
 adminPassword:<12M@12>
