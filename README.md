@@ -81,3 +81,6 @@ https://github.com/programming-hero-web-course-4/b612-used-products-resale-clien
 .it has four blog post
 .It has two authentication system
 .It also have payment system
+
+adminEmail:<murshed@gmail.com>
+adminPassword:<12M@12>
